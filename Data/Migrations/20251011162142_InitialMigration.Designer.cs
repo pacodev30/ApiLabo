@@ -9,11 +9,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace ApiLabo.Data.Migrations
+namespace ApiLabo.Data.migrations
 {
     [DbContext(typeof(ApiDbContext))]
-    [Migration("20250925151710_BirthdayNullableMigration")]
-    partial class BirthdayNullableMigration
+    [Migration("20251011162142_InitialMigration")]
+    partial class InitialMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -36,6 +36,11 @@ namespace ApiLabo.Data.Migrations
                     b.Property<DateTime?>("Birthday")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("DisplayId")
+                        .IsRequired()
+                        .HasMaxLength(16)
+                        .HasColumnType("nvarchar(16)");
+
                     b.Property<string>("Password")
                         .IsRequired()
                         .HasMaxLength(255)
@@ -47,6 +52,9 @@ namespace ApiLabo.Data.Migrations
                         .HasColumnType("nvarchar(50)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Pseudo")
+                        .IsUnique();
 
                     b.ToTable("User", (string)null);
                 });

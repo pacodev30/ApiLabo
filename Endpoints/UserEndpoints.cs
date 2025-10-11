@@ -21,21 +21,21 @@ public static class UserEndpoints
             .Produces(200);
 
         // GET user/1
-        group.MapGet("{id:int}", GetById)
+        group.MapGet("{id}", GetById)
             .WithTags("UserManagement")
             .WithName("GetById")
             .Produces(200)
             .Produces(404);
 
         // DELETE user/1
-        group.MapDelete("{id:int}", Delete)
+        group.MapDelete("{id}", Delete)
             .WithTags("UserManagement")
             .WithName("Delete")
             .Produces(204)
             .Produces(404);
 
         // PUT user/1
-        group.MapPut("{id:int}", Update)
+        group.MapPut("{id}", Update)
             .WithTags("UserManagement")
             .WithName("Update")
             .Produces(204)
@@ -61,7 +61,7 @@ public static class UserEndpoints
     }
 
     private static async Task<IResult> GetById(
-            [FromRoute] int id,
+            [FromRoute] string id,
             [FromServices] IUserService service)
     {
         var userOutput = await service.GetById (id);
@@ -70,7 +70,7 @@ public static class UserEndpoints
     }
 
     private static async Task<IResult> Delete(
-        [FromRoute] int id,
+        [FromRoute] string id,
         [FromServices] IUserService service)
     {
         var result = await service.Delete(id);
@@ -79,7 +79,7 @@ public static class UserEndpoints
     }
 
     private static async Task<IResult> Update(
-        [FromRoute] int id,
+        [FromRoute] string id,
         [FromBody] UserInputModel userInput,
         [FromServices] IUserService service)
     {

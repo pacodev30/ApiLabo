@@ -13,6 +13,8 @@ public class ApiDbContext(DbContextOptions<ApiDbContext> options) : DbContext(op
             c.ToTable("User");
             c.Property(c => c.Pseudo).HasMaxLength(50);
             c.Property(c => c.Password).HasMaxLength(255);
+            c.Property(c => c.DisplayId).HasMaxLength(16);
+            c.HasIndex(c => c.Pseudo).IsUnique();
         });
         base.OnModelCreating(modelBuilder);
     }

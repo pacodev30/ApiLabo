@@ -5,4 +5,5 @@ public class User
     public string Pseudo { get; set; } = string.Empty;
     public string Password { get; set; } = string.Empty;
     public DateTime? Birthday { get; set; }
+    public string DisplayId { get; set; } = string.Empty;
 }

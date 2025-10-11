@@ -37,6 +37,8 @@ await app.Services
     .GetRequiredService<ApiDbContext>().Database
     .MigrateAsync();
 
+app.MapGet("", () => Results.Redirect("/swagger"));
+
 app.MapGroup("/user")
     .MapUserEndpoints();
 

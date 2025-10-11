@@ -11,7 +11,7 @@ namespace ApiLabo.Services
         private UserOutputModel ToOutputModel(User dbUser)
         {
             return new UserOutputModel(
-                dbUser.Id,
+                dbUser.DisplayId,
                 $"Pseudo : {dbUser.Pseudo} | Password : {dbUser.Password}",
                 dbUser.Birthday == DateTime.MinValue ? null : dbUser.Birthday);
         }
@@ -22,15 +22,16 @@ namespace ApiLabo.Services
                 Pseudo = userInput.Pseudo,
                 Password = userInput.Password,
                 Birthday = userInput.Birthday.GetValueOrDefault(),
+                DisplayId = DisplayIdGenerator.GenerateDisplayId("usr")
             };
             _context.Users.Add(dbUser);
             await _context.SaveChangesAsync();
             return ToOutputModel(dbUser);
         }
 
-        public async Task<bool> Delete(int id)
+        public async Task<bool> Delete(string id)
         {
-            return await _context.Users.Where(u => u.Id == id).ExecuteDeleteAsync() > 0;
+            return await _context.Users.Where(u => u.DisplayId == id).ExecuteDeleteAsync() > 0;
         }
 
         public async Task<List<UserOutputModel>> GetAll()
@@ -39,17 +40,17 @@ namespace ApiLabo.Services
             return users;
         }
 
-        public async Task<UserOutputModel?> GetById(int id)
+        public async Task<UserOutputModel?> GetById(string id)
         {
-            var dbUser = await _context.Users.Where(u => u.Id == id).FirstOrDefaultAsync();
+            var dbUser = await _context.Users.Where(u => u.DisplayId == id).FirstOrDefaultAsync();
             if (dbUser is null) return null;
             return ToOutputModel(dbUser);
         }
 
-        public async Task<bool> Update(int id, UserInputModel user)
+        public async Task<bool> Update(string id, UserInputModel user)
         {
             return await _context.Users
-                .Where(u => u.Id == id)
+                .Where(u => u.DisplayId == id)
                 .ExecuteUpdateAsync(usr => usr
                     .SetProperty(us => us.Pseudo, user.Pseudo)
                     .SetProperty(us => us.Password, user.Password)

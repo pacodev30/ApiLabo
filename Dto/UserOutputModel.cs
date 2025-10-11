@@ -1,10 +1,6 @@
-﻿namespace ApiLabo.Dto
-{
-    public record UserOutputModel(
-        int Id, 
-        string LoginId, 
-        DateTime? Birthday)
-    {
-
-    }
-}
+﻿namespace ApiLabo.Dto;
+public record UserOutputModel(
+    string Id, 
+    string LoginId, 
+    DateTime? Birthday)
+{ }

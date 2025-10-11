@@ -1,0 +1,21 @@
+{
+  "dependencies": {
+    "sqlite1": {
+      "ignored": "true",
+      "type": "sqlite"
+    },
+    "mssql2": {
+      "ignored": "true",
+      "type": "mssql",
+      "connectionId": "ConnectionStrings:SqlServer"
+    },
+    "redis1": {
+      "ignored": "true",
+      "type": "redis"
+    },
+    "mssql1": {
+      "type": "mssql",
+      "connectionId": "ConnectionStrings:SqlServer1"
+    }
+  }
+}
